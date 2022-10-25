@@ -1,0 +1,41 @@
+/*Q1*/ 
+SELECT c.FirstName|| ' '|| c.LastName Customer_name, SUM(UnitPrice * Quantity) Total_Invoice
+FROM Customer c
+JOIN Invoice i
+ON c.CustomerId = i.CustomerId
+JOIN InvoiceLine il
+ON il.InvoiceId = i.InvoiceId
+GROUP BY c.customerId
+ORDER BY Total_Invoice DESC
+LIMIT 3;
+
+/*Q2*/ 
+SELECT ar.Name, SUM(il.quantity) Rank
+FROM Artist ar
+JOIN Album a
+ON a.ArtistId = ar.ArtistId
+JOIN Track t
+ON t.AlbumId = a.AlbumId
+JOIN InvoiceLine il
+ON il.TrackId = t.TrackId
+GROUP BY ar.Name
+ORDER BY Rank DESC
+LIMIT 5;
+
+/*Q3*/ 
+SELECT t.Name track_name, SUM(il.quantity) Rank
+FROM Track t
+JOIN InvoiceLine il
+ON il.TrackId = t.TrackId
+GROUP BY track_name
+ORDER BY Rank DESC
+LIMIT 10;
+
+/*Q4*/ 
+SELECT m.Name Media_Type, count(m.MediaTypeId) Rank
+FROM MediaType m
+JOIN Track t
+ON t.MediaTypeId = m.MediaTypeId
+GROUP BY m.MediaTypeId
+ORDER BY Rank DESC;
+
